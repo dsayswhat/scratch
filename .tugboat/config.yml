@@ -1,1 +1,25 @@
-image: tugboatqa/ubuntu:xenial
+services:
+  # What to call the service hosting the site.
+  ubuntu:
+    # Use PHP 7.2 with Apache
+    image: tugboatqa/php:7.2-apache
+
+    # Set this as the default service. This does a few things
+    #   1. Clones the git repository into the service container
+    #   2. Exposes port 80 to the Tugboat HTTP proxy
+    #   3. Routes requests to the preview URL to this service
+    default: true
+
+    # A set of commands to run while building this service
+    commands:
+      # Commands that set up the basic preview infrastructure
+      init:
+        - echo "init reached"
+        # Install opcache and mod-rewrite.
+        # - docker-php-ext-install opcache
+        # - a2enmod headers rewrite
+
+    
+        # Link the document root to the expected path. This example links /web
+        # to the docroot
+        # - ln -snf "${TUGBOAT_ROOT}/web" "${DOCROOT}"
